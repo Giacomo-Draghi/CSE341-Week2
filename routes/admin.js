@@ -24,6 +24,7 @@ router.post('/add-product', (req, res, next) => {
     console.log('Product middleware!');
     products.push({
         title: req.body.title,
+        summary: req.body.summary
     });
     res.redirect('/'); //redirecting to the main page
 });
