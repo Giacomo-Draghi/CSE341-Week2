@@ -1,3 +1,5 @@
+var PORT = process.env.PORT || 3000;
+
 // Importing modules
 // My routers
 const routes = require('./routes');
@@ -43,4 +45,4 @@ app.use((req, res, next) => {
     });
 }); 
 
-app.listen(3000);
+app.listen(PORT);
