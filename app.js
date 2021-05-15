@@ -46,7 +46,7 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 mongoose
-    .connect('mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority')
+    .connect('mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology : true})
     .then(result => {
         User.findOne().then(user => {
             if (!user) {
