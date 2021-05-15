@@ -1,3 +1,4 @@
+const cors = require('cors') // Place this with other requires (like 'path' and 'express')
 const PORT = process.env.PORT || 5000;
 // Importing modules
 // My routers
@@ -45,12 +46,32 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+const corsOptions = {
+    origin: "https://<your_app_name>.herokuapp.com/",
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+const options = {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    family: 4
+};
+
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority";
+
+
 mongoose
-    .connect('mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority', {useNewUrlParser : true, useUnifiedTopology : true})
+    .connect(
+        MONGODB_URL, options
+    )
     .then(result => {
+        // This should be your user handling code implement following the course videos
         User.findOne().then(user => {
             if (!user) {
-                const user = new User ({
+                const user = new User({
                     name: 'Giacomo',
                     email: 'jak127@yahoo.it',
                     cart: {
@@ -60,7 +81,7 @@ mongoose
                 user.save();
             }
         });
-        app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+        app.listen(PORT, () => console.log(`Listening on ${PORT}`));
     })
     .catch(err => {
         console.log(err);
