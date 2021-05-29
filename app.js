@@ -75,22 +75,6 @@ app.use((error, req, res, next) => {
   res.status(500).render('500', { pageTitle: 'Error!', path: '/500'});
 });
 
-const corsOptions = {
-  origin: "https://shop.herokuapp.com/",
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
-
-const options = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  family: 4
-};
-
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority";
-
 
 mongoose
   .connect(MONGODB_URI)
